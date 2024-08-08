@@ -1,0 +1,16 @@
+naiducompoblue As CanvasComponent:
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =640
+    Width: =640
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    Blue As image:
+        Height: =300
+        Image: =blue
+        Width: =300
+        X: =340
+        Y: =340
+        ZIndex: =1
+

@@ -1,0 +1,302 @@
+"'Sign-Up Screen' As screen":
+
+    "'SignUp Container' As groupContainer.manualLayoutContainer":
+        DropShadow: =DropShadow.Bold
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =650
+        RadiusBottomLeft: =45
+        RadiusBottomRight: =45
+        RadiusTopLeft: =45
+        RadiusTopRight: =45
+        Width: =700
+        X: =333
+        Y: =72
+        ZIndex: =2
+
+        Signuplogo As image:
+            Height: =188
+            Image: =image
+            ImagePosition: =ImagePosition.Fill
+            OnSelect: =
+            Width: =628
+            X: =36
+            ZIndex: =1
+
+        SignupEmailTextInput As text:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderThickness: =1
+            Default: =
+            Fill: =Color.White
+            Height: =70
+            HintText: ="Email"
+            HoverFill: =RGBA(255, 255, 255, 1)
+            OnSelect: =
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =20
+            Width: =400
+            X: =201
+            Y: =218
+            ZIndex: =2
+
+        CreateAccountButton As button:
+            Fill: =RGBA(0, 18, 107, 1)
+            Height: =58
+            HoverFill: =RGBA(0, 18, 107, 1)
+            OnSelect: |
+                =/*If(
+                    IsBlank(SignupEmailTextInput.Text),
+                    // If the email is empty
+                    Notify("Please enter the email.", NotificationType.Error),
+                    If(
+                        IsBlank(PasswordTextInput.Text),
+                        // If the password is empty
+                        Notify("Please enter the password.", NotificationType.Error),
+                        If(
+                            IsBlank(ConfirmPasswordTextInput.Text),
+                            // If the confirm password is empty
+                            Notify("Please enter the confirm password.", NotificationType.Error),
+                            If(
+                                PasswordTextInput.Text <> ConfirmPasswordTextInput.Text,
+                                // If the password and confirm password do not match
+                                Notify("Passwords do not match. Please ensure the password and confirm password are the same.", NotificationType.Error),
+                                If(
+                                    IsEmpty(Filter(LoginDetails, UserName = SignupEmailTextInput.Text)),
+                                    // If the user does not exist in LoginDetails
+                                    IfError(
+                                        Patch(
+                                            LoginDetails,
+                                            Defaults(LoginDetails),
+                                            {
+                                                UserName: SignupEmailTextInput.Text,
+                                                Password: PasswordTextInput.Text
+                                            }
+                                        ),
+                                        // Patch error handling
+                                        Notify("Something went wrong: " & FirstError.Message, NotificationType.Error),
+                                        // Patch success handling
+                                        Notify("Data has been successfully saved.", NotificationType.Success)
+                                    ),
+                                    // If the user already exists in LoginDetails
+                                    Notify(
+                                        "User already has an existing account. Here is your username: " &
+                                        LookUp(LoginDetails, UserName = SignupEmailTextInput.Text).UserName,
+                                        NotificationType.Information
+                                    )
+                                )
+                            )
+                        )
+                    )
+                );
+                
+                Reset(SignupEmailTextInput);
+                Reset(PasswordTextInput);
+                Reset(ConfirmPasswordTextInput);
+                Navigate('Login HomePage',ScreenTransition.UnCoverRight);
+                */
+                
+                
+                If(
+                    IsBlank(SignupEmailTextInput.Text),
+                    // If the email is empty
+                    Notify("Please enter the email.", NotificationType.Error),
+                    If(
+                        !IsMatch(SignupEmailTextInput.Text, "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"),
+                        // If the email format is invalid
+                        Notify("Please enter a valid email address.", NotificationType.Error),
+                        If(
+                            IsBlank(ConfirmPasswordTextInput.Text),
+                            // If the password is empty
+                            Notify("Please enter the password.", NotificationType.Error),
+                            If(
+                                IsBlank(ConfirmPasswordTextInput.Text),
+                                // If the confirm password is empty
+                                Notify("Please enter the confirm password.", NotificationType.Error),
+                                If(
+                                    ConfirmPasswordTextInput.Text <> ConfirmPasswordTextInput.Text,
+                                    // If the password and confirm password do not match
+                                    Notify("Passwords do not match. Please ensure the password and confirm password are the same.", NotificationType.Error),
+                                    If(
+                                        IsEmpty(Filter(LoginDetails, UserName = SignupEmailTextInput.Text)),
+                                        // If the user does not exist in LoginDetails
+                                        IfError(
+                                            Patch(
+                                                LoginDetails,
+                                                Defaults(LoginDetails),
+                                                {
+                                                    UserName: SignupEmailTextInput.Text,
+                                                    Password: ConfirmPasswordTextInput.Text
+                                                }
+                                            ),
+                                            // Patch error handling
+                                            Notify("Something went wrong: " & FirstError.Message, NotificationType.Error),
+                                            // Patch success handling
+                                            Notify("Data has been successfully saved.", NotificationType.Success);
+                                            // Navigate to the 'Login HomePage' only if data is successfully saved
+                                            Navigate('Login HomePage', ScreenTransition.UnCoverRight)
+                                        ),
+                                        // If the user already exists in LoginDetails
+                                        Notify(
+                                            "User already has an existing account. Here is your username: " &
+                                            LookUp(LoginDetails, UserName = SignupEmailTextInput.Text).UserName,
+                                            NotificationType.Information
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                );
+                
+                // Reset the input fields
+                Reset(SignupEmailTextInput);
+                Reset(PasswordTextInput);
+                Reset(ConfirmPasswordTextInput);
+            RadiusBottomLeft: =15
+            RadiusBottomRight: =15
+            RadiusTopLeft: =15
+            RadiusTopRight: =15
+            Size: =20
+            Text: ="Create account"
+            Width: =520
+            X: =81
+            Y: =531
+            ZIndex: =4
+
+        EmailBtn As button:
+            BorderColor: =Color.Black
+            BorderThickness: =1
+            DisplayMode: =DisplayMode.View
+            Fill: =RGBA(184, 0, 0, 0.73)
+            Height: =70
+            OnSelect: =
+            RadiusBottomRight: =0
+            RadiusTopLeft: |
+                =10
+            RadiusTopRight: =0
+            Text: =
+            Width: =120
+            X: =81
+            Y: =218
+            ZIndex: =11
+
+        pbtn As button:
+            BorderColor: =Color.Black
+            BorderThickness: =1
+            DisplayMode: =DisplayMode.View
+            Fill: =RGBA(50, 86, 160, 1)
+            Height: =70
+            OnSelect: =
+            RadiusBottomRight: =0
+            RadiusTopLeft: |
+                =10
+            RadiusTopRight: =0
+            Text: =
+            Width: =120
+            X: =81
+            Y: =316
+            ZIndex: =14
+
+        peyeIcon As icon.View:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =40
+            Icon: =If(var_password_visible,Icon.View,Icon.Hide)
+            OnSelect: |-
+                =UpdateContext({var_password_visible : !var_password_visible});
+            Width: =40
+            X: =116
+            Y: =325
+            ZIndex: =16
+
+        cpbtn As button:
+            BorderColor: =Color.Black
+            BorderThickness: =1
+            DisplayMode: =DisplayMode.View
+            Fill: =RGBA(50, 86, 160, 1)
+            Height: =70
+            OnSelect: =
+            RadiusBottomRight: =0
+            RadiusTopLeft: |
+                =10
+            RadiusTopRight: =0
+            Text: =
+            Width: =120
+            X: =81
+            Y: =414
+            ZIndex: =18
+
+        cpeyeIcon As icon.View:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =40
+            Icon: =If(var_confirmPassword_visible,Icon.View,Icon.Hide)
+            OnSelect: |-
+                =UpdateContext({var_confirmPassword_visible : !var_confirmPassword_visible});
+            Width: =40
+            X: =120
+            Y: =426
+            ZIndex: =19
+
+        Image1 As image:
+            Height: =70
+            Image: ='image-removebg-preview (13)'
+            Width: =80
+            X: =101
+            Y: =218
+            ZIndex: =20
+
+        ConfirmPasswordTextInput As text:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderThickness: =1
+            Default: =
+            Fill: =Color.White
+            Height: =70
+            HintText: ="Confirm Password"
+            HoverFill: =RGBA(255, 255, 255, 1)
+            OnSelect: =
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =20
+            Width: =400
+            X: =201
+            Y: =414
+            ZIndex: =21
+
+        PasswordTextInput As text:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderThickness: =1
+            Default: =
+            Fill: =Color.White
+            Height: =70
+            HintText: ="Password"
+            HoverFill: =RGBA(255, 255, 255, 1)
+            OnSelect: =
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =20
+            Width: =400
+            X: =201
+            Y: =316
+            ZIndex: =22
+
+    SignupRedImg As image:
+        Height: =200
+        Image: =red
+        ImagePosition: =ImagePosition.Fill
+        Width: =300
+        ZIndex: =3
+
+    SignupblueImg As image:
+        Height: =200
+        Image: =blue
+        ImagePosition: =ImagePosition.Fill
+        Width: =300
+        X: =1066
+        Y: =568
+        ZIndex: =4
+

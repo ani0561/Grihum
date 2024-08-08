@@ -1,0 +1,683 @@
+"'Dashboard Screen_1' As screen.'phoneLayout_FluidGridWithHeaderPageLayout_ver3.0'":
+    OnVisible: =ClearCollect(UserLikes, [])
+
+    Canvas1_1 As fluidGrid.fluidGridWithBlankCard:
+        BorderThickness: =0
+        Height: =768
+        Width: =Parent.Width
+        Y: =
+        ZIndex: =3
+
+        DataCard1_1 As dataCard:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderStyle: =BorderStyle.Solid
+            BorderThickness: =0
+            DisplayMode: =DisplayMode.Edit
+            Fill: =RGBA(215, 223, 240, 0.47)
+            Height: =1752
+            Width: =Parent.Width
+            WidthFit: =false
+            X: =0
+            Y: =0
+            ZIndex: =1
+
+            Button6_1 As button:
+                Fill: =RGBA(9, 33, 98, 1)
+                Height: =60
+                OnSelect: =Navigate('Post a question screen')
+                Text: ="Post Question"
+                Width: =250
+                X: =1104
+                Y: =101
+                ZIndex: =2
+
+            Container1_1 As groupContainer.manualLayoutContainer:
+                Fill: =RGBA(9, 33, 98, 1)
+                Height: =179
+                Width: =1366
+                Y: =177
+                ZIndex: =3
+
+                Rectangle2_1 As rectangle:
+                    Fill: =RGBA(50, 86, 160, 1)
+                    Height: =104
+                    Width: =120
+                    X: =1040
+                    Y: =96
+                    ZIndex: =1
+
+                Circle3_1 As circle:
+                    Fill: =Color.WhiteSmoke
+                    Height: =160
+                    Width: =160
+                    X: =1206
+                    ZIndex: =2
+
+                Triangle1_1 As triangle:
+                    Fill: =RGBA(204, 102, 201, 0.78)
+                    Height: =120
+                    Width: =145
+                    X: =1126
+                    Y: =16
+                    ZIndex: =3
+
+                Rectangle1_1 As rectangle:
+                    Fill: =RGBA(136, 160, 209, 1)
+                    Height: =65
+                    Width: =70
+                    X: =1065
+                    Y: =115
+                    ZIndex: =4
+
+            Label2_1 As label:
+                FontWeight: =FontWeight.Semibold
+                Height: =50
+                Size: =20
+                Text: ="Forum board"
+                Width: =200
+                X: =67
+                Y: =362
+                ZIndex: =4
+
+            Dropdown1_1 As dropdown:
+                ChevronBackground: =RGBA(9, 33, 98, 1)
+                Height: =60
+                HoverFill: =RGBA(255, 255, 255, 1)
+                Items: =DropDownSample
+                Width: =1230
+                X: =70
+                Y: =419
+                ZIndex: =5
+
+            Label2_10 As label:
+                FontWeight: =FontWeight.Semibold
+                Height: =50
+                Size: =20
+                Text: ="Sort by"
+                Width: =128
+                X: =914
+                Y: =540
+                ZIndex: =6
+
+            Label2_9 As label:
+                FontWeight: =FontWeight.Semibold
+                Height: =50
+                Size: =20
+                Text: ="Status"
+                Width: =128
+                X: =496
+                Y: =540
+                ZIndex: =7
+
+            Label2_6 As label:
+                FontWeight: =FontWeight.Semibold
+                Height: =50
+                Size: =20
+                Text: ="Category"
+                Width: =128
+                X: =70
+                Y: =540
+                ZIndex: =8
+
+            Dropdown2_3 As dropdown:
+                AllowEmptySelection: =true
+                ChevronBackground: =RGBA(9, 33, 98, 1)
+                Default: ="All"
+                Height: =52
+                HoverFill: =RGBA(255, 255, 255, 1)
+                Items: ='Forums & Categories'
+                Width: =250
+                X: =209
+                Y: =538
+                ZIndex: =9
+
+            Dropdown2_5 As dropdown:
+                ChevronBackground: =RGBA(9, 33, 98, 1)
+                Default: ="Date"
+                Height: =52
+                HoverFill: =RGBA(255, 255, 255, 1)
+                Items: =["Most recent replied post","Date"]
+                Width: =250
+                X: =1050
+                Y: =538
+                ZIndex: =10
+
+            Dropdown2_4 As dropdown:
+                ChevronBackground: =RGBA(9, 33, 98, 1)
+                Height: =52
+                HoverFill: =RGBA(255, 255, 255, 1)
+                Items: =["All","Answered","Unanswered","SuggestedAnswered"]
+                Width: =250
+                X: =623
+                Y: =538
+                ZIndex: =11
+
+            "Gallery1_1 As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0'":
+                DelayItemLoading: =true
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =730
+                Items: =Filter('Questions List',(Categories=Dropdown2_3.SelectedText.'data-ADB4D7A662F548B49FAC2B986E348A1BCategories'||IsBlank(Dropdown2_3.SelectedText.'data-ADB4D7A662F548B49FAC2B986E348A1BCategories')))
+                Layout: =Layout.Vertical
+                LoadingSpinner: =LoadingSpinner.Data
+                TemplatePadding: =0
+                TemplateSize: =363
+                Width: =1226
+                X: =74
+                Y: =727
+                ZIndex: =12
+
+                Separator1_1 As rectangle:
+                    Fill: =RGBA(255, 255, 255, 1)
+                    Height: =8
+                    OnSelect: =Select(Parent)
+                    Width: =Parent.TemplateWidth
+                    Y: =Parent.TemplateHeight - Self.Height
+                    ZIndex: =5
+
+                Container2_1 As groupContainer.horizontalAutoLayoutContainer:
+                    Height: =76
+                    LayoutMode: =LayoutMode.Auto
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    Width: =1222
+                    X: =4
+                    ZIndex: =7
+
+                    Button7_1 As button:
+                        AlignInContainer: =AlignInContainer.Center
+                        Color: =RGBA(0, 0, 0, 1)
+                        Fill: =RGBA(215, 223, 240, 1)
+                        RadiusBottomLeft: =25
+                        RadiusBottomRight: =25
+                        RadiusTopLeft: =25
+                        RadiusTopRight: =25
+                        Text: ="Answerd"
+                        ZIndex: =1
+
+                Container3_1 As groupContainer.manualLayoutContainer:
+                    Height: =125
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    Width: =1226
+                    Y: =76
+                    ZIndex: =8
+
+                    Label3_9 As label:
+                        Size: =16
+                        Text: =ThisItem.Categories
+                        Width: =600
+                        X: =18
+                        Y: =16
+                        ZIndex: =1
+
+                    Label3_10 As label:
+                        Color: =RGBA(0, 94, 146, 1)
+                        FontWeight: =FontWeight.Semibold
+                        OnSelect: =Navigate(Screen1);
+                        Size: =20
+                        Text: =ThisItem.Forum
+                        Underline: =true
+                        Width: =1000
+                        X: =18
+                        Y: =56
+                        ZIndex: =2
+
+                    Label3_11 As label:
+                        FontWeight: =FontWeight.Bold
+                        Height: =32
+                        Size: =16
+                        Text: ="Last Replies"
+                        Width: =147
+                        X: =18
+                        Y: =93
+                        ZIndex: =3
+
+                    Label3_12 As label:
+                        FontWeight: =FontWeight.Semibold
+                        Height: =32
+                        Size: =16
+                        Text: |-
+                            ="4 Aug 2024  14:11:37"
+                        Width: =250
+                        X: =165
+                        Y: =93
+                        ZIndex: =4
+
+                    Label3_13 As label:
+                        FontWeight: =FontWeight.Bold
+                        Height: =32
+                        Size: =16
+                        Text: ="Psted on"
+                        Width: =120
+                        X: =390
+                        Y: =93
+                        ZIndex: =5
+
+                    Label3_14 As label:
+                        FontWeight: =FontWeight.Semibold
+                        Height: =32
+                        Size: =16
+                        Text: =ThisItem.Created
+                        Width: =250
+                        X: =498
+                        Y: =93
+                        ZIndex: =6
+
+                    Label3_15 As label:
+                        FontWeight: =FontWeight.Bold
+                        Height: =32
+                        Size: =16
+                        Text: ="By"
+                        Width: =45
+                        X: =725
+                        Y: =93
+                        ZIndex: =7
+
+                    Label3_16 As label:
+                        Color: =RGBA(0, 94, 146, 1)
+                        FontWeight: =FontWeight.Semibold
+                        Height: =32
+                        Size: =16
+                        Text: =ThisItem.'Created By'.DisplayName
+                        Underline: =true
+                        Width: =346
+                        X: =768
+                        Y: =93
+                        ZIndex: =8
+
+                Container4_1 As groupContainer.manualLayoutContainer:
+                    Height: =162
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    Width: =1226
+                    Y: =201
+                    ZIndex: =9
+
+                    Label3_17 As label:
+                        Height: =74
+                        Overflow: =Overflow.Scroll
+                        Size: =16
+                        Text: =ThisItem.Subject
+                        Width: =1000
+                        X: =16
+                        ZIndex: =1
+
+                    Icon1_1 As icon.Reset:
+                        Height: =39
+                        Icon: =Icon.Reset
+                        Width: =51
+                        X: =27
+                        Y: =92
+                        ZIndex: =2
+
+                    Label2_12 As label:
+                        FontWeight: =FontWeight.Bold
+                        Height: =50
+                        Size: =20
+                        Text: ="Reply"
+                        Width: =128
+                        X: =78
+                        Y: =86
+                        ZIndex: =3
+
+                    Label2_13 As label:
+                        FontWeight: =FontWeight.Bold
+                        Height: =50
+                        Size: =20
+                        Text: ="Likes (" & ThisItem.Likes & ")"
+                        Width: =128
+                        X: =277
+                        Y: =86
+                        ZIndex: =5
+
+                    Icon6 As icon.ThumbsUpFilled:
+                        Color: =RGBA(0, 13, 75, 1)
+                        Height: =37
+                        Icon: |
+                            =If(
+                                User().Email in Split(ThisItem.Usermail, ";"),
+                                Icon.ThumbsUpFilled,
+                                Icon.ThumbsUp
+                            )
+                        OnSelect: |
+                            =If(
+                                !(User().Email in Split(
+                                    ThisItem.Usermail,
+                                    ";"
+                                )),
+                                Patch(
+                                    'Questions List',
+                                    LookUp(
+                                        'Questions List',
+                                        ID = ThisItem.ID
+                                    ),
+                                    {
+                                        Likes: ThisItem.Likes + 1,
+                                        Usermail: If(
+                                            IsBlank(ThisItem.Usermail),
+                                            User().Email,
+                                            ThisItem.Usermail & If(
+                                                IsBlank(ThisItem.Usermail),
+                                                "",
+                                                ";"
+                                            ) & User().Email
+                                        )
+                                    }
+                                ),
+                                Patch(
+                                    'Questions List',
+                                    LookUp(
+                                        'Questions List',
+                                        ID = ThisItem.ID
+                                    ),
+                                    {
+                                        Likes: ThisItem.Likes - 1,
+                                        Usermail: TrimEnds(
+                                            Substitute(
+                                                Substitute(
+                                                    Substitute(
+                                                        ThisItem.Usermail,
+                                                        User().Email & ";",
+                                                        ""
+                                                    ),
+                                                    ";" & User().Email,
+                                                    ""
+                                                ),
+                                                User().Email,
+                                                ""
+                                            )
+                                        )
+                                    }
+                                )
+                            );
+                             /** Patch(
+                                    'Questions List',
+                                    LookUp('Questions List', ID = ThisItem.ID),
+                                    {
+                                        Likes: ThisItem.Likes + 1,
+                                        Usermail: If(
+                                            IsBlank(ThisItem.Usermail),
+                                            "synaidu@thedigifac.net",
+                                            ThisItem.Usermail & If(IsBlank(ThisItem.Usermail), "", ";") & "synaidu@thedigifac.net"
+                                        )
+                                    }
+                                )*/
+                        Width: =37
+                        X: =240
+                        Y: =92
+                        ZIndex: =6
+
+            Rectangle4_1 As rectangle:
+                Fill: =RGBA(9, 33, 98, 1)
+                Height: =80
+                Width: =1230
+                X: =70
+                Y: =627
+                ZIndex: =13
+
+            Label1_2 As label:
+                Color: =RGBA(255, 255, 255, 1)
+                Font: =Font.'Segoe UI'
+                Height: =100
+                Size: =50
+                Text: ="GHFL Forum"
+                Width: =500
+                X: =67
+                Y: =232
+                ZIndex: =14
+
+            Label2_11 As label:
+                Color: =RGBA(255, 255, 255, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =50
+                Size: =20
+                Text: ="Topic"
+                Width: =128
+                X: =619
+                Y: =642
+                ZIndex: =15
+
+            Label4_6 As label:
+                Align: =Align.Center
+                BorderThickness: =1
+                FocusedBorderThickness: =1
+                Height: =60
+                Size: =18
+                Text: ="1"
+                Width: =60
+                X: =536
+                Y: =1552
+                ZIndex: =16
+
+            Label4_5 As label:
+                Align: =Align.Center
+                BorderThickness: =1
+                Color: =RGBA(255, 255, 255, 1)
+                Fill: =RGBA(0, 18, 107, 1)
+                FocusedBorderThickness: =1
+                Height: =60
+                Size: =18
+                Text: ="<<"
+                Width: =60
+                X: =447
+                Y: =1552
+                ZIndex: =17
+
+            Label4_9 As label:
+                Align: =Align.Center
+                BorderThickness: =1
+                Color: =RGBA(255, 255, 255, 1)
+                Fill: =RGBA(0, 18, 107, 1)
+                FocusedBorderThickness: =1
+                Height: =60
+                Size: =18
+                Text: =">>"
+                Width: =60
+                X: =810
+                Y: =1552
+                ZIndex: =18
+
+            Label4_8 As label:
+                Align: =Align.Center
+                BorderThickness: =1
+                FocusedBorderThickness: =1
+                Height: =60
+                Size: =18
+                Text: ="3"
+                Width: =60
+                X: =718
+                Y: =1552
+                ZIndex: =19
+
+            Label4_7 As label:
+                Align: =Align.Center
+                BorderThickness: =1
+                FocusedBorderThickness: =1
+                Height: =60
+                Size: =18
+                Text: ="2"
+                Width: =60
+                X: =631
+                Y: =1552
+                ZIndex: =20
+
+            Rectangle3_2 As rectangle:
+                BorderColor: =RGBA(0, 0, 0, 1)
+                Fill: =Color.White
+                Height: =82
+                Width: =1366
+                Y: =4
+                ZIndex: =21
+
+            Image2_2 As image:
+                Height: =65
+                Image: =User().Image
+                RadiusBottomLeft: =65
+                RadiusBottomRight: =65
+                RadiusTopLeft: =65
+                RadiusTopRight: =65
+                Width: =65
+                X: =1272
+                Y: =12
+                ZIndex: =22
+
+            Label7_2 As label:
+                FontWeight: =FontWeight.Bold
+                Size: =18
+                Text: ="GHFL Forums"
+                Width: =200
+                X: =398
+                Y: =24
+                ZIndex: =23
+
+            Icon4_2 As icon.VerticalLine:
+                Height: =45
+                Icon: =Icon.VerticalLine
+                X: =295
+                Y: =26
+                ZIndex: =24
+
+            TextInput3_2 As text:
+                BorderThickness: =0.05
+                Default: =
+                HintText: ="Search"
+                Width: =280
+                X: =864
+                Y: =26
+                ZIndex: =25
+
+            Icon5_2 As icon.Search:
+                Height: =30
+                Icon: =Icon.Search
+                Width: =30
+                X: =1104
+                Y: =31
+                ZIndex: =26
+
+            Image5_1 As image:
+                Height: =62
+                Image: =image
+                Width: =210
+                X: =60
+                Y: =14
+                ZIndex: =27
+
+            Icon3_3 As icon.Bell:
+                Height: =50
+                Icon: =Icon.Bell
+                OnSelect: |-
+                    =
+                     
+                    /*
+                    Set(
+                        SelectedNotification,
+                        First(
+                            Filter(
+                                'Notifications List',
+                                UserId = User().Email And !IsRead
+                            )
+                        )
+                    );
+                    
+                    // Mark the notification as read
+                    Patch(
+                        'Notifications List',
+                        SelectedNotification,
+                        {
+                            IsRead: true
+                        }
+                    );
+                    
+                    // Update the count of unread notifications
+                    Set(
+                        UnreadNotificationCount,
+                        CountRows(
+                            Filter(
+                                'Notifications List',
+                                UserId = User().Email && !IsRead
+                            )
+                        )
+                    );*/
+                    
+                    
+                    Set(
+                        SelectedNotification,
+                        First(
+                            Filter(UserNotifications, !IsRead)
+                        )
+                    );
+                    
+                    // Mark the notification as read
+                    Patch(
+                        'Notifications List',
+                        SelectedNotification,
+                        {
+                            IsRead: true
+                        }
+                    );
+                    
+                    // Update the local collection
+                    ClearCollect(
+                        UserNotifications,
+                        Filter('Notifications List', UserId = User().Email)
+                    );
+                    
+                    // Update the count of unread notifications
+                    Set(
+                        UnreadNotificationCount,
+                        CountRows(
+                            Filter(UserNotifications, !IsRead)
+                        )
+                    );
+                    
+                    
+                    // Navigate to the details screen
+                    Navigate('Post a question screen');
+                     
+                Width: =50
+                X: =1185
+                Y: =19
+                ZIndex: =28
+
+            Circle1 As circle:
+                Fill: |-
+                    =If(
+                        Label8_2.Text = "0",
+                        RGBA(0, 0, 0, 0), // No color (black as default)
+                        If(
+                            IsNumeric(Label8_2.Text),
+                            RGBA(184, 0, 0, 1), // Red color for numbers
+                            RGBA(0, 0, 0, 0) // Default color if it's not a number (black)
+                        )
+                    )
+                Height: =30
+                Width: =30
+                X: =1213
+                Y: =12
+                ZIndex: =30
+
+            Label8_2 As label:
+                Align: =Align.Center
+                Color: =RGBA(255, 255, 255, 1)
+                Height: =30
+                Text: |-
+                    =/*CountRows(
+                        Filter(
+                            'Notifications List',
+                            UserId = User().Email && !IsRead
+                        )
+                    )*/
+                    
+                    
+                    (UnreadNotificationCount)
+                Width: =30
+                X: =1213
+                Y: =12
+                ZIndex: =31
+

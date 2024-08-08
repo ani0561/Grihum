@@ -1,0 +1,289 @@
+"'Sign-In Screen' As screen":
+
+    "'Sign-In Container' As groupContainer.manualLayoutContainer":
+        DropShadow: =DropShadow.Bold
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =650
+        RadiusBottomLeft: =45
+        RadiusBottomRight: =45
+        RadiusTopLeft: =45
+        RadiusTopRight: =45
+        Width: =700
+        X: =333
+        Y: =72
+        ZIndex: =2
+
+        signinlogo As image:
+            Height: =200
+            Image: =image
+            ImagePosition: =ImagePosition.Fill
+            RadiusBottomLeft: =60
+            RadiusBottomRight: =60
+            RadiusTopLeft: =60
+            RadiusTopRight: =60
+            Width: =600
+            X: =50
+            Y: =13
+            ZIndex: =1
+
+        EmailTextInput As text:
+            BorderThickness: =1
+            Default: =
+            Fill: =Color.White
+            Font: =Font.Verdana
+            Height: =70
+            HintText: ="Email"
+            HoverFill: =RGBA(255, 255, 255, 1)
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =20
+            Width: =464
+            X: =171
+            Y: =231
+            ZIndex: =2
+
+        LoginButton As button:
+            Fill: =RGBA(0, 18, 107, 1)
+            Height: =66
+            HoverFill: =RGBA(0, 18, 107, 1)
+            OnSelect: |
+                =If(
+                    IsBlank(EmailTextInput.Text) || IsBlank(SignInPasswordTextInput.Text),
+                    Notify("Username and password are required", NotificationType.Error),
+                    // Valid username and password provided
+                    Set(
+                        CurrentUser,
+                        LookUp(
+                            LoginDetails,
+                            UserName = EmailTextInput.Text && Password = SignInPasswordTextInput.Text
+                        )
+                    );
+                
+                    If(
+                        IsBlank(CurrentUser),
+                        Notify("Incorrect username or password", NotificationType.Error),
+                        // Sign-in successful
+                        Notify("Sign-in successful", NotificationType.Success);
+                        Navigate('Dashboard Screen') // Assuming 'Dashboard Screen' is your target screen
+                    )
+                );
+                
+                Reset(EmailTextInput);
+                Reset(SignInPasswordTextInput);
+            RadiusBottomLeft: =15
+            RadiusBottomRight: =15
+            RadiusTopLeft: =15
+            RadiusTopRight: =15
+            Size: =20
+            Text: ="Login"
+            Width: =584
+            X: =51
+            Y: =439
+            ZIndex: =4
+
+        ForgotPasswordButton As button:
+            BorderThickness: =0
+            Color: =RGBA(0, 94, 146, 1)
+            DisplayMode: |
+                =If(
+                    !IsBlank(EmailTextInput.Text),
+                    DisplayMode.Edit,       
+                    DisplayMode.Disabled    
+                )
+            Fill: =Color.White
+            Height: =42
+            HoverColor: =RGBA(39, 113, 194, 1)
+            HoverFill: =Color.White
+            OnSelect: |+
+                =
+                /* Set(OTP, Text(RoundUp(Rand() * 10000, 0), "0000"));
+                
+                // Get the current date and time for the email
+                Set(CurrentDateTime, Now());
+                
+                // Fetch the user's details from the LoginDetails list
+                Set(UserDetails, LookUp(LoginDetails, UserName = EmailTextInput.Text));
+                Set(UserName, UserDetails.UserName);
+                
+                // Format the email content with HTML and inline CSS for color
+                Set(EmailContent,
+                    "<html><body style='font-family: Arial, sans-serif;'>" &
+                    "<h2 style='color: #007BFF;'>Password Reset OTP</h2>" &
+                    "<p style='color: #333333;'>Dear " & User().FullName & ",</p>" &
+                    "<p style='color: #333333;'>Your OTP for password reset is: <b style='color: #FF5722;'>" & OTP & "</b></p>" &
+                    "<p style='color: #333333;'>Please use this OTP to complete your password reset process. This OTP is valid for the next 10 minutes.</p>" &
+                    "<br>" &
+                    "<p style='color: #777777;'>Generated on: " & Text(CurrentDateTime, "dddd, mmmm d, yyyy hh:mm AM/PM") & "</p>" &
+                    "<br>" &
+                    "<p style='color: #555555;'>Thank you,<br>Team GHFL.</p>" &
+                    "</body></html>"
+                );
+                
+                // Send the OTP via email with HTML content
+                Office365Outlook.SendEmailV2(
+                    EmailTextInput.Text,
+                    "Password Reset OTP",
+                    EmailContent,
+                    {IsHtml: true}
+                );
+                
+                // Update the LoginDetails with the OTP for the specified user
+                Patch(
+                    LoginDetails,
+                    LookUp(LoginDetails, UserName = EmailTextInput.Text),
+                    { OTP: OTP }
+                );
+                
+                // Notify the user that the OTP has been sent
+                Notify("OTP has been sent to your email.", NotificationType.Success);
+                
+                // Navigate to the 'OTP Validate Screen'
+                Navigate('OTP Validate Screen');
+                */
+                
+                
+                // Fetch the user's details from the LoginDetails list
+                Set(UserDetails, LookUp(LoginDetails, UserName = EmailTextInput.Text));
+                
+                // Check if the email exists in the LoginDetails list
+                If(
+                    !IsBlank(UserDetails),
+                    
+                    // Generate a random 4-digit OTP
+                    Set(OTP, Text(RoundUp(Rand() * 10000, 0), "0000"));
+                    
+                    // Get the current date and time for the email
+                    Set(CurrentDateTime, Now());
+                    
+                    // Format the email content with HTML and inline CSS for color
+                    Set(EmailContent,
+                        "<html><body style='font-family: Arial, sans-serif;'>" &
+                        "<h2 style='color: #007BFF;'>Password Reset OTP</h2>" &
+                        "<p style='color: #333333;'>Dear " & User().FullName & ",</p>" &
+                        "<p style='color: #333333;'>Your OTP for password reset is: <b style='color: #FF5722;'>" & OTP & "</b></p>" &
+                        "<p style='color: #333333;'>Please use this OTP to complete your password reset process. This OTP is valid for the next 10 minutes.</p>" &
+                        "<br>" &
+                        "<p style='color: #777777;'>Generated on: " & Text(CurrentDateTime, "dddd, mmmm d, yyyy hh:mm AM/PM") & "</p>" &
+                        "<br>" &
+                        "<p style='color: #555555;'>Thank you,<br>Team GHFL.</p>" &
+                        "</body></html>"
+                    );
+                    
+                    // Send the OTP via email with HTML content
+                    Office365Outlook.SendEmailV2(
+                        EmailTextInput.Text,
+                        "Password Reset OTP",
+                        EmailContent,
+                        {IsHtml: true}
+                    );
+                    
+                    // Update the LoginDetails with the OTP for the specified user
+                    Patch(
+                        LoginDetails,
+                        UserDetails,
+                        { OTP: OTP }
+                    );
+                    
+                    // Notify the user that the OTP has been sent
+                    Notify("OTP has been sent to your email.", NotificationType.Success);
+                    
+                    // Navigate to the 'OTP Validate Screen'
+                  Navigate('OTP Validate Screen', ScreenTransition.Fade),
+                    
+                    // Else part: If the email is not found in the list
+                    Notify("Email not found. Please enter a valid email.", NotificationType.Error)
+                );
+                
+                
+                
+            Size: =17
+            Text: ="Forgot Password"
+            Underline: =true
+            Width: =291
+            X: =205
+            Y: =540
+            ZIndex: =5
+
+        EmailButton As button:
+            DisplayMode: =DisplayMode.View
+            Fill: =RGBA(184, 0, 0, 0.73)
+            Height: =70
+            RadiusBottomRight: =0
+            RadiusTopLeft: |
+                =10
+            RadiusTopRight: =0
+            Text: =
+            Width: =120
+            X: =51
+            Y: =231
+            ZIndex: =11
+
+        BlueButton As button:
+            DisplayMode: =DisplayMode.View
+            Fill: =RGBA(50, 86, 160, 1)
+            Height: =70
+            RadiusBottomRight: =0
+            RadiusTopLeft: |
+                =10
+            RadiusTopRight: =0
+            Text: =
+            Width: =120
+            X: =51
+            Y: =341
+            ZIndex: =14
+
+        signEyeIcon As icon.View:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =40
+            Icon: =If(var_signPassword_visible,Icon.View,Icon.Hide)
+            OnSelect: |-
+                =UpdateContext({var_signPassword_visible : !var_signPassword_visible});
+            Width: =40
+            X: =94
+            Y: =361
+            ZIndex: =16
+
+        SignInPasswordTextInput As text:
+            BorderThickness: =1
+            Default: =
+            Fill: =Color.White
+            Font: =Font.Verdana
+            Height: =70
+            HintText: ="Password"
+            HoverFill: =RGBA(255, 255, 255, 1)
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =20
+            Width: =464
+            X: =171
+            Y: =341
+            ZIndex: =18
+
+        Image1_1 As image:
+            Height: =70
+            Image: ='image-removebg-preview (13)'
+            Width: =80
+            X: =74
+            Y: =231
+            ZIndex: =19
+
+    SignInRed As image:
+        Height: =200
+        Image: =red
+        ImagePosition: =ImagePosition.Fill
+        Width: =300
+        ZIndex: =3
+
+    SignInBlue As image:
+        Height: =200
+        Image: =blue
+        ImagePosition: =ImagePosition.Fill
+        Width: =300
+        X: =1066
+        Y: =568
+        ZIndex: =4
+

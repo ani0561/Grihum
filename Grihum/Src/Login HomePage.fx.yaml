@@ -1,0 +1,62 @@
+"'Login HomePage' As screen":
+    Fill: =RGBA(255, 255, 255, 1)
+
+    logoimg As image:
+        BorderColor: =RGBA(0, 0, 0, 0)
+        Height: =200
+        Image: =image
+        ImagePosition: =ImagePosition.Fill
+        Width: =700
+        X: =333
+        Y: =106
+        ZIndex: =2
+
+    loginbtn As button:
+        Fill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+        Height: =85
+        OnSelect: =Navigate('Sign-In Screen')
+        RadiusBottomLeft: =100
+        RadiusBottomRight: =100
+        RadiusTopLeft: =100
+        RadiusTopRight: =100
+        Size: =18
+        Text: ="Sign-In with UserName and Password"
+        Width: =600
+        X: =380
+        Y: =370
+        ZIndex: =3
+
+    createaccountbtn As button:
+        BorderColor: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+        Color: =RGBA(39, 113, 194, 1)
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =85
+        HoverColor: =RGBA(0, 94, 146, 1)
+        HoverFill: =
+        OnSelect: =Navigate('Sign-Up Screen')
+        RadiusBottomLeft: =100
+        RadiusBottomRight: =100
+        RadiusTopLeft: =100
+        RadiusTopRight: =100
+        Size: =18
+        Text: ="Create Account"
+        Width: =600
+        X: =380
+        Y: =519
+        ZIndex: =4
+
+    RedImg As image:
+        Height: =200
+        Image: =red
+        Width: =300
+        ZIndex: =5
+
+    blueImg As image:
+        Height: =200
+        Image: =blue
+        ImagePosition: =ImagePosition.Fill
+        Width: =300
+        X: =1066
+        Y: =568
+        ZIndex: =6
+

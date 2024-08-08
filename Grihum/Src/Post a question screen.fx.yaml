@@ -1,0 +1,315 @@
+"'Post a question screen' As screen.'phoneLayout_FluidGridWithHeaderPageLayout_ver3.0'":
+
+    Canvas2 As fluidGrid.fluidGridWithBlankCard:
+        BorderThickness: =0
+        Height: =Parent.Height - Self.Y
+        Width: =Parent.Width
+        Y: =
+        ZIndex: =3
+
+        DataCard2 As dataCard:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderStyle: =BorderStyle.Solid
+            BorderThickness: =0
+            DisplayMode: =DisplayMode.Edit
+            Fill: =RGBA(215, 223, 240, 0.47)
+            Height: =1784
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+            ZIndex: =1
+
+            Label1_1 As label:
+                Font: =Font.'Segoe UI'
+                FontWeight: =FontWeight.Semibold
+                Height: =88
+                Size: =45
+                Text: ="Post your question to a forum"
+                Width: =850
+                X: =50
+                Y: =82
+                ZIndex: =1
+
+            Label5 As label:
+                Color: =RGBA(255, 0, 0, 1)
+                Height: =26
+                Size: =20
+                Text: ="*"
+                Width: =30
+                X: =62
+                Y: =173
+                ZIndex: =2
+
+            Label6 As label:
+                Height: =35
+                Size: =18
+                Text: ="Fields are required."
+                Width: =250
+                X: =92
+                Y: =174
+                ZIndex: =3
+
+            Label6_1 As label:
+                FontWeight: =FontWeight.Semibold
+                Size: =18
+                Text: ="Forum"
+                Width: =100
+                X: =62
+                Y: =256
+                ZIndex: =4
+
+            Label5_1 As label:
+                Color: =RGBA(255, 0, 0, 1)
+                Height: =30
+                Size: =18
+                Text: ="*"
+                Width: =30
+                X: =140
+                Y: =250
+                ZIndex: =5
+
+            Dropdown3 As dropdown:
+                AllowEmptySelection: =true
+                ChevronBackground: =RGBA(9, 33, 98, 1)
+                Default: =" "
+                Height: =60
+                HoverFill: =RGBA(255, 255, 255, 1)
+                Items: =Sort(Distinct('Forums & Categories',Forum),Value)
+                Width: =1238
+                X: =60
+                Y: =330
+                ZIndex: =6
+
+            Label6_2 As label:
+                FontWeight: =FontWeight.Semibold
+                Size: =18
+                Text: ="Subject"
+                Width: =100
+                X: =64
+                Y: =440
+                ZIndex: =7
+
+            Label5_2 As label:
+                Color: =RGBA(255, 0, 0, 1)
+                Height: =30
+                Size: =18
+                Text: ="*"
+                Width: =30
+                X: =152
+                Y: =434
+                ZIndex: =8
+
+            TextInput1 As text:
+                Default: =
+                Height: =60
+                HoverFill: =RGBA(255, 255, 255, 1)
+                Width: =1238
+                X: =60
+                Y: =512
+                ZIndex: =9
+
+            Label5_3 As label:
+                Color: =RGBA(255, 0, 0, 1)
+                Height: =30
+                Size: =18
+                Text: ="*"
+                Width: =30
+                X: =192
+                Y: =609
+                ZIndex: =10
+
+            Label6_3 As label:
+                FontWeight: =FontWeight.Semibold
+                Size: =18
+                Text: ="Description"
+                X: =60
+                Y: =617
+                ZIndex: =11
+
+            RichTextEditor1 As richTextEditor:
+                Default: ="Enter some <strong>rich text</strong> here."
+                Height: =450
+                Width: =1238
+                X: =62
+                Y: =696
+                ZIndex: =12
+
+            Label6_4 As label:
+                FontWeight: =FontWeight.Semibold
+                Size: =18
+                Text: ="Catagories"
+                X: =64
+                Y: =1192
+                ZIndex: =13
+
+            Label6_5 As label:
+                FontWeight: =FontWeight.Semibold
+                Size: =18
+                Text: ="Attachments"
+                Width: =180
+                X: =64
+                Y: =1379
+                ZIndex: =15
+
+            TextInput2 As text:
+                Align: =Align.Center
+                Default: ="Attachments"
+                FontWeight: =FontWeight.Semibold
+                Height: =150
+                HoverFill: =RGBA(255, 255, 255, 1)
+                Width: =1238
+                X: =64
+                Y: =1462
+                ZIndex: =16
+
+            Button1 As button:
+                Fill: =RGBA(9, 33, 98, 1)
+                Height: =60
+                HoverFill: =RGBA(9, 33, 98, 1)
+                OnSelect: |+
+                    =
+                     // Step 1: Post the new question
+                    Set(
+                        NewQuestion,
+                        Patch(
+                            'Questions List',
+                            Defaults('Questions List'),
+                            {
+                                Forum: Dropdown3.Selected.Value,
+                                Subject: TextInput1.Text,
+                                Description: RichTextEditor1.HtmlText,
+                                Categories: Dropdown3_1.Selected.Categories
+                            }
+                        )
+                    );
+                    
+                    // Step 2: Fetch all users from the SharePoint list
+                    ClearCollect(
+                        AllUsers,
+                        LoginDetails
+                    );
+                    
+                    // Step 3: Add notifications for all users
+                    ForAll(
+                        AllUsers,
+                        Patch(
+                            'Notifications List',
+                            Defaults('Notifications List'),
+                            {
+                                UserId: ThisRecord.UserName, // Assuming UserName stores the email
+                                QuestionId: NewQuestion.ID, // ID of the new question
+                                IsRead: false
+                            }
+                        )
+                    );
+                    
+                    // Optionally, reset form fields or provide user feedback
+                    Reset(Dropdown3);
+                    Reset(TextInput1);
+                    Reset(RichTextEditor1);
+                    Reset(Dropdown3_1);
+                    Notify("Question submitted successfully!", NotificationType.Success);
+                    
+                    Navigate(Screen1);
+                    
+                    
+                    
+                Text: ="Post"
+                X: =62
+                Y: =1680
+                ZIndex: =17
+
+            Button1_1 As button:
+                BorderColor: =RGBA(9, 33, 98, 1)
+                Color: =RGBA(0, 0, 0, 1)
+                Fill: =Color.White
+                Height: =60
+                HoverFill: =RGBA(9, 33, 98, 1)
+                Text: ="Cancel"
+                X: =295
+                Y: =1680
+                ZIndex: =18
+
+            Rectangle3 As rectangle:
+                Fill: =Color.White
+                Height: =82
+                Width: =1366
+                ZIndex: =19
+
+            Image2 As image:
+                Height: =65
+                Image: =User().Image
+                RadiusBottomLeft: =65
+                RadiusBottomRight: =65
+                RadiusTopLeft: =65
+                RadiusTopRight: =65
+                Width: =65
+                X: =1272
+                Y: =8
+                ZIndex: =20
+
+            Label7 As label:
+                FontWeight: =FontWeight.Bold
+                Size: =18
+                Text: ="GHFL Forums"
+                Width: =200
+                X: =398
+                Y: =20
+                ZIndex: =22
+
+            Icon3 As icon.Bell:
+                Height: =50
+                Icon: =Icon.Bell
+                Width: =50
+                X: =1183
+                Y: =15
+                ZIndex: =23
+
+            Icon4 As icon.VerticalLine:
+                Height: =45
+                Icon: =Icon.VerticalLine
+                X: =295
+                Y: =22
+                ZIndex: =24
+
+            TextInput3 As text:
+                BorderThickness: =0.05
+                Default: =
+                HintText: ="Search"
+                Width: =280
+                X: =864
+                Y: =22
+                ZIndex: =25
+
+            Icon5 As icon.Search:
+                Height: =30
+                Icon: =Icon.Search
+                Width: =30
+                X: =1104
+                Y: =27
+                ZIndex: =26
+
+            Dropdown3_1 As dropdown:
+                BorderColor: =RGBA(9, 33, 98, 1)
+                ChevronBackground: =RGBA(255, 255, 255, 1)
+                ChevronDisabledBackground: =RGBA(0, 0, 0, 0)
+                ChevronHoverBackground: =
+                DisabledBorderColor: =RGBA(9, 33, 98, 1)
+                DisabledColor: =RGBA(202, 202, 202, 1)
+                DisplayMode: =If(IsBlank(Dropdown3.Selected.Value), DisplayMode.Disabled, DisplayMode.Edit)
+                Height: =60
+                HoverFill: =RGBA(255, 255, 255, 1)
+                Items: =Filter('Forums & Categories', Forum = Dropdown3.Selected.Value)
+                Width: =1238
+                X: =64
+                Y: =1273
+                ZIndex: =27
+
+            Image5 As image:
+                Height: =62
+                Image: =image
+                Width: =210
+                X: =60
+                Y: =10
+                ZIndex: =28
+

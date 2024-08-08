@@ -1,0 +1,63 @@
+{
+  "28268e0e-63d7-4d7b-93c7-d5a4cdde6714": {
+    "appActions": [
+      "SendEmailV2"
+    ],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Office 365 Outlook",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1686/1.0.1686.3706/office365/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_office365",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [
+      "Office365Outlook"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "28268e0e-63d7-4d7b-93c7-d5a4cdde6714"
+  },
+  "a34b2399-3b41-4064-b301-d400de85cad0": {
+    "appActions": [
+      "providers/PowerPlatform.Governance/Operations/Read",
+      "providers/PowerPlatform.Governance/Operations/Write"
+    ],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "SharePoint",
+      "iconUri": "https://connectoricons-prod.azureedge.net/u/jayawan/releases/v1.0.1697/1.0.1697.3786/sharepointonline/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sharepointonline",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {
+      "https://digifac.sharepoint.com/sites/GrihumForumsSite": {
+        "dataSources": {
+          "Forums & Categories": {
+            "tableName": "e314e0b2-b795-493f-8a07-f547958258d4"
+          },
+          "LoginDetails": {
+            "tableName": "16070c85-5756-4284-956f-1327e352be6a"
+          },
+          "Notifications List": {
+            "tableName": "a6aa3fc3-4682-4de6-bc95-91d24e76245f"
+          },
+          "Questions List": {
+            "tableName": "c40254c3-d25c-4ba1-81e3-5f4faa79675f"
+          }
+        }
+      }
+    },
+    "dataSources": [
+      "LoginDetails",
+      "Questions List",
+      "Forums & Categories",
+      "Notifications List"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "a34b2399-3b41-4064-b301-d400de85cad0"
+  }
+}
